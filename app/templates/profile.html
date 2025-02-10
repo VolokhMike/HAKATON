@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Profile</title>
+</head>
+<body>
+
+	<div>
+		<img src="{{ profile.photo }}" alt="Profile Photo">
+		<h1>{{ profile.username }}</h1>
+		<p>Points: {{ profile.points }}</p>
+		
+		<h2>Profile Information</h2>
+		<p>Email: {{ profile.gmail }}</p>
+		<p>Description: {{ profile.prof_description }}</p>
+
+		<h2>Available Quests</h2>
+		{% if quests %}
+			{% for quest in quests %}
+				<div>
+					<h3>{{ quest.name }}</h3>
+					<p>Points: {{ quest.points }}</p>
+					<p>Description: {{ quest.description }}</p>
+					<p>Time: {{ quest.time }}</p>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>No quests available</p>
+		{% endif %}
+
+		<a href="{{ url_for('get_edit_profile_page') }}">Edit Profile</a>
+		<a href="{{ url_for('get_menu_page') }}">Back to Menu</a>
+	</div>
+
+</body>
+</html>
