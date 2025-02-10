@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Edit Profile</title>
+</head>
+<body>
+	
+	<div>
+		<h1>Edit Profile</h1>
+		
+		<form action="{{ url_for('post_edit_profile_page') }}" method="POST" enctype="multipart/form-data">
+			<div>
+				<label for="photo">Profile Photo URL:</label>
+				<input type="url" id="photo" name="photo" value="{{ profile.photo }}" required>
+				<img src="{{ profile.photo }}" alt="Current Profile Photo" width="100">
+			</div>
+
+			<div>
+				<label for="username">Username:</label>
+				<input type="text" id="username" name="username" value="{{ profile.username }}" required>
+			</div>
+
+			<div>
+				<label for="gmail">Email:</label>
+				<input type="email" id="gmail" name="gmail" value="{{ profile.gmail }}" required>
+			</div>
+
+			<div>
+				<label for="prof_description">Description:</label>
+				<textarea id="prof_description" name="prof_description" required>{{ profile.prof_description }}</textarea>
+			</div>
+
+			<button type="submit">Save Changes</button>
+		</form>
+
+		<a href="{{ url_for('get_profile_page') }}">Back to Profile</a>
+	</div>
+
+</body>
+</html>
