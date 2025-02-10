@@ -62,15 +62,7 @@ def create_profile_table():
         conn.close()
 
 
-def attach_second_database():
-    conn = sqlite3.connect("users.db")
-    cursor = conn.cursor()
-    cursor.execute("ATTACH DATABASE 'db2.sqlite' AS db2;")
-    conn.close()
-
-
 def create_tables():
     create_user_table()
     create_quests_table()
     create_profile_table()
-    attach_second_database()
