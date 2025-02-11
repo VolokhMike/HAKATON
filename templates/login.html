@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <style>
+        /* Фон на весь экран */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background: url('../static/assets/BackImage.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Контейнер формы */
+        .form-container {
+            position: absolute;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 320px;
+            right: 40%;
+            background: white; /* Четкий фон формы */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            color: #333;
+            text-align: center;
+        }
+
+        /* Поля ввода */
+        .input {
+            background: white;
+            color: black;
+        }
+
+        /* Кнопка */
+        .button {
+            width: 100%;
+        }
+
+
+        /* Текст внизу */
+        .help-text {
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2 class="title">Register</h2>
+    <form method="POST">
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left">
+                <input class="input" type="email" placeholder="abc123@gmail.com" name="gmail" required>
+                <span class="icon is-small is-left">
+                        📧
+                    </span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left">
+                <input id="password" class="input" type="password" placeholder="Enter your password" name="password" required>
+                <span class="icon is-small is-left">
+                        🔒
+                    </span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-link">Sing up</button>
+            </div>
+        </div>
+        <p class="help-text">Don`t have any account? <a href="{{ url_for('get_singup') }}">Sign in</a></p>
+    </form>
+</div>
+
+<script>
+</script>
+</body>
+</html>
