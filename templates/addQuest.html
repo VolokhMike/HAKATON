@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add quest</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            background-image: linear-gradient(270deg, rgb(55, 202, 168) 0%, rgb(64, 129, 198) 100%);
+        }
+    </style>
+</head>
+<body>
+<div class="fixed-grid has-3-cols">
+    <div class="grid mt-6">
+        <div class="card cell is-col-start-2 p-2 px-4">
+            <h1 class="title">Add quests</h1>
+            <form>
+                <label for="title">Add quest</label>
+                <input class="input py-2" type="text" id="title" name="title" placeholder="Name" required>
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="textarea py-2" rows="4" placeholder="Bla bla bla"
+                          required readonly></textarea>
+
+
+
+                <div class="field is-grouped mt-4">
+                    <input type="submit" class="button is-link" value="Add">
+                    <input type="button" class="button is-link is-light" value="Reset">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

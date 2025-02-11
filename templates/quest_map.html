@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head class="theme-dark">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mind Map - Обмеження перетягування</title>
+	<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+	>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+
+		}
+		.mind-map {
+			position: relative;
+			width: 100%;
+			height: 600px;
+			margin: 20px auto;
+			border: 1px solid #ddd;
+			overflow: hidden;
+			background-color: #b58cfb;
+			user-select: none;
+		}
+		.node {
+			position: absolute;
+			padding: 10px 20px;
+			background-color: #ffcc80;
+			border-radius: 20px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+			cursor: grab;
+			transition: transform 0.2s ease;
+		}
+		.node:active {
+			cursor: grabbing;
+		}
+	</style>
+</head>
+<body>
+<h1>Mind Map - Обмеження перетягування</h1>
+<div class="mind-map" id="mindMap">
+	<div class="node" style="top: 50%; left: 50%;" data-info="Центральна ідея">Центральна ідея</div>
+	<div class="node" style="top: 20%; left: 20%;" data-info="Перша ідея">Ідея 1</div>
+	<div class="node" style="top: 20%; left: 80%;" data-info="Друга ідея">Ідея 2</div>
+	<div class="node" style="top: 80%; left: 20%;" data-info="Третя ідея">Ідея 3</div>
+	<div class="node" style="top: 80%; left: 80%;" data-info="Четверта ідея">Ідея 4</div>
+</div>
+
+<script>
+	let isDragging = false;
+	let currentNode = null;
+	let offsetX = 0;
+	let offsetY = 0;
+
+	document.querySelectorAll('.node').forEach(node => {
+		node.addEventListener('mousedown', function(e) {
+			isDragging = true;
+			currentNode = this;
+			offsetX = e.clientX - currentNode.offsetLeft;
+			offsetY = e.clientY - currentNode.offsetTop;
+			currentNode.style.transition = 'none';
+		});
+
+		window.addEventListener('mousemove', function(e) {
+			if (isDragging && currentNode) {
+				const map = document.getElementById('mindMap');
+				const mapRect = map.getBoundingClientRect();
+				const nodeRect = currentNode.getBoundingClientRect();
+
+				let newX = e.clientX - offsetX;
+				let newY = e.clientY - offsetY;
+
+				// Обмеження по межах mind-map
+				newX = Math.max(0, Math.min(newX, mapRect.width - nodeRect.width));
+				newY = Math.max(0, Math.min(newY, mapRect.height - nodeRect.height));
+
+				currentNode.style.left = `${newX}px`;
+				currentNode.style.top = `${newY}px`;
+				drawLines();
+			}
+		});
+
+		window.addEventListener('mouseup', function() {
+			if (isDragging) {
+				isDragging = false;
+				currentNode.style.transition = 'transform 0.2s ease';
+				currentNode = null;
+			}
+		});
+	});
+
+	function drawLines() {
+		const map = document.getElementById('mindMap');
+		const lines = document.querySelectorAll('.line');
+		lines.forEach(line => line.remove());
+
+		const nodes = document.querySelectorAll('.node');
+		const parent = document.querySelector('.node');
+
+		nodes.forEach(node => {
+			if (node !== parent) {
+				const line = document.createElement('div');
+				line.classList.add('line');
+				const startX = parent.offsetLeft + parent.offsetWidth / 2;
+				const startY = parent.offsetTop + parent.offsetHeight / 2;
+				const endX = node.offsetLeft + node.offsetWidth / 2;
+				const endY = node.offsetTop + node.offsetHeight / 2;
+				const length = Math.hypot(endX - startX, endY - startY);
+				const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+				line.style.width = `${length}px`;
+				line.style.top = `${startY}px`;
+				line.style.left = `${startX}px`;
+				line.style.transform = `rotate(${angle}deg)`;
+				map.appendChild(line);
+			}
+		});
+	}
+
+	window.onload = drawLines;
+</script>
+</body>
+</html>
