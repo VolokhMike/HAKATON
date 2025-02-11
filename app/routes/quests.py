@@ -1,4 +1,6 @@
 import sqlite3
+import time
+from datetime import datetime 
 
 from flask import render_template, redirect, url_for, request
 from flask_login import current_user, login_required
@@ -46,9 +48,16 @@ def post_add_quests():
     
     try:
         conn = get_db_connection()
+        curs = conn.cursor()
+        timestamp = int(time.time())
         conn.execute('INSERT INTO quests (name, description, points, answer) VALUES (?, ?, ?, ?)', 
                      (name, description, points, answer))
         conn.commit()
+        curs.execute("SELECT time FROM quests")
+        row = curs.fetchone()
+        print("Из базы (timestamp):", row[0])
+        print("Формат datetime:", datetime.fromtimestamp(row[0]))
+        print("Формат ctime:", time.ctime(row[0]))
         conn.close()
         return redirect(url_for('get_add_quests'))
     except sqlite3.Error as e:
